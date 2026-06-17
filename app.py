@@ -1,10 +1,16 @@
-def check_even_odd(number):
-    if number % 2 == 0:
-        return "Even"
-    else:
-        return "Odd"
+from flask import Flask
 
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Use /<number> in the URL. Example: /10"
+
+@app.route("/<int:number>")
+def check(number):
+    if number % 2 == 0:
+        return f"{number} is Even"
+    return f"{number} is Odd"
 
 if __name__ == "__main__":
-    num = int(input("Enter a number: "))
-    print(check_even_odd(num))
+    app.run(host="0.0.0.0", port=5000)
